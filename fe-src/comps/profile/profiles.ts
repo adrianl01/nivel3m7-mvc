@@ -34,12 +34,29 @@ customElements.define("pro-el", class Welcome extends HTMLElement {
             .feed {
                 display: flex;
                 flex-direction: column;
-                gap: 45px;
+                gap: 35px;
                 background-color: aquamarine;
                 align-items: center;
                 height: 100;
                 padding: 20px;
                 border-radius: 6px;
+            }
+            .profile {
+                display: flex;
+                flex-direction: column;
+                gap:6px;
+               width:100%;
+                border: black solid 3px;
+                border-radius: 6px;
+            }
+            .div-img {
+                display:flex;
+                padding: 5px;
+                justify-content: center;
+            }
+            .img {
+                max-height: 80%;
+                max-width: 80%;
             }
         `;
         div.classList.add("root"); this.appendChild(div); this.appendChild(style)
@@ -53,10 +70,11 @@ customElements.define("pro-el", class Welcome extends HTMLElement {
             div.innerHTML = `
             <div class="name">${p.name}</div>
             <div class="bio">${p.bio}</div>
-            <div class="img"><a href="${p.image}"></a></div>
+            <div class="div-img" ><img class="img" src="${p.image}"></a></div>
             `;
             const feedEl = this.querySelector(".feed")
-            console.log(feedEl)
+            console.log(div)
+            div.classList.add("profile")
             feedEl.appendChild(div)
         })
 

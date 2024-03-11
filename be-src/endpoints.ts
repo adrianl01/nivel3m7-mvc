@@ -14,12 +14,13 @@ app.use(express.json())
 //     console.log("listo")
 // })
 
-
-
 app.post("/profile", async (req, res) => {
-    console.log("profile")
+    console.log(req.body)
+    console.log("profile endpoint")
+
     if (!req.body) { throw error("No data in req.body") }
     const newProfile = await createProfile(req.body)
+    console.log("newProfile", newProfile)
     res.json(newProfile)
 })
 
@@ -28,7 +29,7 @@ app.get("/profiles", async (req, res) => {
     const allProfiles = await getProfiles()
     res.json(allProfiles)
 })
-console.log(__dirname)
+
 const pathDist = path.resolve(__dirname + "/../dist")
 app.get("*", express.static(pathDist))
 

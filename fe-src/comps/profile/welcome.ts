@@ -1,4 +1,5 @@
 import { state } from "../../../state";
+import { Dropzone } from "dropzone"
 
 customElements.define("welc-el", class Welcome extends HTMLElement {
     connectedCallback() {
@@ -18,9 +19,9 @@ customElements.define("welc-el", class Welcome extends HTMLElement {
         <label>Tu Bio</label>
          <input class="class-input" type="text" name="input2">
         </fieldset>    
-        <fieldset class="fieldset">              
+        <fieldset class="fieldset-2">              
         <label>Tu Foto de Perfil</label>
-         <input class="class-input" type="text" name="input3">
+        <div class="dropzone">Arrastra tu foto aquí</div>
         </fieldset>    
             <button type="submit" class="button">Enviar</button>
             </form>
@@ -61,18 +62,48 @@ customElements.define("welc-el", class Welcome extends HTMLElement {
                 border: black solid 3px;
                 border-radius: 6px;display: flex;
                 flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                height: 80px;
+            }
+            .fieldset-2 {
+                border: black solid 3px;
+                border-radius: 6px;display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                height: 100%;
+            }
+            .dropzone{
+                display: block;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                border: black solid 3px;
             }
         `;
         div.classList.add("root"); this.appendChild(div); this.appendChild(style)
     }
     listeners() {
+        let imageDataURL;
         const formEl = this.querySelector(".form")
+        const myDropzone = new Dropzone(".dropzone", {
+            url: "/falsa",
+            autoProcessQueue: false
+        });
+        myDropzone.on("addedfile", function (file) {
+            imageDataURL = file
+        });
+
         formEl.addEventListener("submit", (e) => {
             e.preventDefault();
             const trgt = e.target as any;
             const name = trgt.input.value;
             const bio = trgt.input2.value;
-            const image = trgt.input3.value
+            const image = imageDataURL.dataURL
+
+            console.log({ name, bio, image })
+
             state.createProfile(name, bio, image)
         })
         const profilesButton = this.querySelector(".button-profiles");

@@ -22,6 +22,7 @@ const state = {
         this.listeners.push(callback)
     },
     createProfile(name: string, bio: string, image: string) {
+        console.log(name, bio, image)
         fetch(API_BASE_URL + "/profile", {
             method: "post",
             headers: {
