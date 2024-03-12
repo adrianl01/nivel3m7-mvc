@@ -3,6 +3,7 @@ import { createProfile, getProfiles } from "./controllers/user-controller";
 import { error } from "console";
 import cors from "cors"
 import path from "path";
+require('dotenv').config()
 const port = process.env.PORT || 3002;
 const app = express();
 app.use(cors());
